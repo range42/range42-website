@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en"
+  x-data="{
+    theme: localStorage.getItem('r42-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
+    navOpen: false
+  }"
+  :data-theme="theme"
+  x-init="$watch('theme', t => localStorage.setItem('r42-theme', t))">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f7fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B0F14" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="dark light">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Primary SEO -->
+  <title>About — Range42</title>
+  <meta name="description" content="Range42 is an open-source cyber range platform developed by NC3 and the Luxembourg House of Cybersecurity. Learn about the team, supporters and how to contribute.">
+  <meta name="keywords" content="Range42 team, NC3 Luxembourg, LHC cybersecurity, open source cyber range, GPL license, public money public code">
+  <meta name="author" content="NC3 Luxembourg — National Cybersecurity Competence Center">
+  <link rel="canonical" href="https://range42.example.com/about.html"><!-- TODO: update domain -->
+
+  <!-- Icons & Manifest -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/favicon.svg">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Range42">
+  <meta name="application-name" content="Range42">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://range42.example.com/about.html">
+  <meta property="og:title" content="About — Range42">
+  <meta property="og:description" content="Range42 is an open-source cyber range platform developed by NC3 and the Luxembourg House of Cybersecurity.">
+  <meta property="og:image" content="https://range42.example.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="About Range42">
+  <meta property="og:site_name" content="Range42">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About — Range42">
+  <meta name="twitter:description" content="Range42 is an open-source cyber range platform developed by NC3 and the Luxembourg House of Cybersecurity.">
+  <meta name="twitter:image" content="https://range42.example.com/assets/og-image.png">
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="dist/output.css">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "name": "About Range42",
+        "description": "Range42 is an open-source cyber range platform developed by NC3 and the Luxembourg House of Cybersecurity.",
+        "url": "https://range42.example.com/about.html",
+        "inLanguage": "en",
+        "isPartOf": { "@type": "WebSite", "name": "Range42", "url": "https://range42.example.com" },
+        "about": {
+          "@type": "Organization",
+          "name": "NC3 — National Cybersecurity Competence Center",
+          "url": "https://nc3.lu",
+          "parentOrganization": {
+            "@type": "Organization",
+            "name": "Luxembourg House of Cybersecurity",
+            "url": "https://lhc.lu"
+          }
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://range42.example.com/" },
+          { "@type": "ListItem", "position": 2, "name": "About", "item": "https://range42.example.com/about.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.11/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-base text-ink">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 btn-primary z-50">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-40 border-b border-theme nav-backdrop">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+          <svg class="h-7 w-7 flex-shrink-0" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="36" height="36" rx="6" stroke="#217EAA" stroke-width="1.5" fill="#217EAA" fill-opacity="0.08"/>
+            <path d="M10 14.5L18 20L10 25.5" stroke="#217EAA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="21" y="26.5" width="9" height="2.5" rx="1" fill="#217EAA"/>
+          </svg>
+          <span class="font-mono font-bold text-accent tracking-widest text-sm">RANGE42</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="getting-started.html" class="nav-link">Docs</a>
+          <a href="catalog.html" class="nav-link">Catalog</a>
+          <a href="repositories.html" class="nav-link">Repos</a>
+          <a href="about.html" class="nav-link-active">About</a>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="btn-primary !py-1.5 !px-3 !text-xs">GitHub ↗</a>
+          <button @click="theme = theme === 'dark' ? 'light' : 'dark'" class="text-faint hover:text-muted transition-colors p-1 rounded" :aria-label="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'">
+            <svg x-show="theme === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg x-show="theme === 'light'" x-cloak class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+        <button @click="navOpen = !navOpen" class="md:hidden p-2 text-muted hover:text-ink transition-colors rounded" aria-label="Toggle navigation">
+          <svg x-show="!navOpen" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg x-show="navOpen" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div x-show="navOpen" x-cloak x-transition.opacity.duration.150ms class="md:hidden pb-4 border-t border-theme pt-3">
+        <div class="flex flex-col gap-2">
+          <a href="getting-started.html" class="nav-link py-2 px-1">Docs</a>
+          <a href="catalog.html" class="nav-link py-2 px-1">Catalog</a>
+          <a href="repositories.html" class="nav-link py-2 px-1">Repos</a>
+          <a href="about.html" class="nav-link-active py-2 px-1">About</a>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="nav-link py-2 px-1">GitHub ↗</a>
+          <button @click="theme = theme === 'dark' ? 'light' : 'dark'" class="text-left nav-link py-2 px-1" x-text="theme === 'dark' ? '☀ Light mode' : '🌙 Dark mode'"></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+      <div class="max-w-2xl mx-auto">
+
+        <!-- Header -->
+        <header class="mb-12">
+          <!-- Breadcrumb -->
+          <nav class="mb-4 text-xs font-mono" aria-label="Breadcrumb">
+            <ol class="flex flex-wrap items-center gap-1 text-faint">
+              <li><a href="/" class="hover:text-muted transition-colors">home</a></li>
+              <li aria-hidden="true">/</li>
+              <li class="text-muted">about</li>
+            </ol>
+          </nav>
+          <p class="terminal-prompt mb-3">about</p>
+          <h1 class="text-3xl md:text-4xl font-bold text-ink mb-4 tracking-tight">About Range42</h1>
+          <p class="text-base sm:text-lg text-muted leading-relaxed">
+            Open-source infrastructure for building real cybersecurity training environments.
+          </p>
+        </header>
+
+        <!-- Project origin -->
+        <section class="mb-12" aria-labelledby="origin-heading">
+          <h2 id="origin-heading" class="text-xl font-bold text-ink mb-4 pb-2 border-b border-theme">The Project</h2>
+          <p class="text-muted leading-relaxed mb-4">
+            Range42 was created at the <a href="https://nc3.lu" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">National Cybersecurity Competence Center (NC3)</a>,
+            part of the <a href="https://lhc.lu" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">Luxembourg House of Cybersecurity</a>.
+            The goal was simple: make it practical for any security team to spin up a realistic, reproducible training environment without spending weeks on infrastructure setup.
+          </p>
+          <p class="text-muted leading-relaxed mb-4">
+            Built on Proxmox and Ansible, Range42 provisions entire lab environments from a single command or a visual interface.
+            Everything is infrastructure-as-code — versioned, shareable, and tear-down-and-rebuild at will.
+          </p>
+          <p class="text-muted leading-relaxed">
+            The project is released under <strong class="text-ink">GPL-3.0</strong> and developed in accordance with the
+            <a href="https://publiccode.eu" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">Public Money, Public Code</a> initiative —
+            publicly funded tools should be freely available to everyone.
+          </p>
+        </section>
+
+        <!-- Supporters -->
+        <section class="mb-12 reveal" aria-labelledby="supporters-heading">
+          <h2 id="supporters-heading" class="text-xl font-bold text-ink mb-6 pb-2 border-b border-theme">Supporters</h2>
+
+          <div class="space-y-4">
+
+            <div class="card">
+              <div class="flex items-start gap-4">
+                <div class="flex-1">
+                  <h3 class="font-semibold text-ink mb-1">Luxembourg House of Cybersecurity (LHC)</h3>
+                  <p class="text-sm text-muted leading-relaxed mb-2">
+                    The Luxembourg House of Cybersecurity and its National Cybersecurity Competence Center (NC3) are the lead institution behind Range42,
+                    providing development resources, infrastructure, and strategic direction.
+                  </p>
+                  <a href="https://lhc.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">lhc.lu ↗</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 class="font-semibold text-ink mb-1">Direction de la Défense</h3>
+              <p class="text-sm text-muted leading-relaxed mb-2">Sponsor of the Range42 initiative, supporting the development of national cybersecurity training capabilities.</p>
+              <a href="https://defense.gouvernement.lu/en.html" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">defense.gouvernement.lu ↗</a>
+            </div>
+
+            <div class="card">
+              <h3 class="font-semibold text-ink mb-1">DIGISQUAD</h3>
+              <p class="text-sm text-muted leading-relaxed mb-2">Contributing partner providing development resources for the Range42 platform, including the deployer UI and Ansible catalog.</p>
+              <a href="https://www.digisquad.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">digisquad.lu ↗</a>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- License -->
+        <section class="mb-12 reveal" aria-labelledby="license-heading">
+          <h2 id="license-heading" class="text-xl font-bold text-ink mb-4 pb-2 border-b border-theme">License</h2>
+          <p class="text-muted leading-relaxed mb-4">
+            Range42 is free software released under the
+            <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">GNU General Public License v3.0</a>.
+            You are free to use, study, modify and distribute it — including for commercial purposes — as long as derivative works remain under the same license.
+          </p>
+          <div class="p-4 rounded-lg bg-surface2 border border-theme">
+            <p class="text-xs font-mono text-muted">
+              <span class="text-accent">SPDX-License-Identifier:</span> GPL-3.0<br>
+              <span class="text-accent">Copyright:</span> NC3 — National Cybersecurity Competence Center, Luxembourg<br>
+              <span class="text-accent">Initiative:</span> <a href="https://publiccode.eu" target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">Public Money, Public Code</a>
+            </p>
+          </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" aria-labelledby="contact-heading" class="reveal">
+          <h2 id="contact-heading" class="text-xl font-bold text-ink mb-4 pb-2 border-b border-theme">Contact Us</h2>
+
+          <a href="mailto:contact@range42.lu" class="card-hover block no-underline mb-5">
+            <p class="section-label mb-2">Email</p>
+            <p class="font-mono text-lg text-accent break-all">contact@range42.lu</p>
+            <p class="text-xs text-muted mt-2">For partnerships, training programmes, or anything not suited to a public issue tracker.</p>
+          </a>
+
+          <h3 class="text-xs uppercase tracking-widest font-mono text-soft mb-3">Community</h3>
+          <ul class="space-y-2">
+            <li class="flex gap-3 items-center">
+              <span class="text-accent text-sm" aria-hidden="true">▸</span>
+              <span class="text-sm text-ink font-medium">GitHub Organisation</span>
+              <span class="text-faint" aria-hidden="true">—</span>
+              <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="text-sm text-accent hover:underline font-mono">github.com/range42</a>
+            </li>
+            <li class="flex gap-3 items-center">
+              <span class="text-accent text-sm" aria-hidden="true">▸</span>
+              <span class="text-sm text-ink font-medium">Bug reports &amp; features</span>
+              <span class="text-faint" aria-hidden="true">—</span>
+              <a href="https://github.com/range42/range42/issues" target="_blank" rel="noopener noreferrer" class="text-sm text-accent hover:underline font-mono">GitHub Issues</a>
+            </li>
+            <li class="flex gap-3 items-center">
+              <span class="text-accent text-sm" aria-hidden="true">▸</span>
+              <span class="text-sm text-ink font-medium">NC3 Luxembourg</span>
+              <span class="text-faint" aria-hidden="true">—</span>
+              <a href="https://nc3.lu" target="_blank" rel="noopener noreferrer" class="text-sm text-accent hover:underline font-mono">nc3.lu</a>
+            </li>
+          </ul>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-soft mt-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="text-center pb-5 mb-5 border-b border-soft">
+        <p class="text-xs uppercase tracking-widest font-mono text-faint mb-3">Supported by</p>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-1">
+          <a href="https://nc3.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-soft hover:text-muted transition-colors">NC3 · Luxembourg House of Cybersecurity</a>
+          <a href="https://defense.gouvernement.lu/en.html" target="_blank" rel="noopener noreferrer" class="text-xs text-faint hover:text-soft transition-colors">Direction de la Défense</a>
+          <a href="https://www.digisquad.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-faint hover:text-soft transition-colors">DIGISQUAD</a>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-4">
+          <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <svg class="h-5 w-5" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="36" height="36" rx="6" stroke="#217EAA" stroke-width="1.5" fill="#217EAA" fill-opacity="0.08"/>
+              <path d="M10 14.5L18 20L10 25.5" stroke="#217EAA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="21" y="26.5" width="9" height="2.5" rx="1" fill="#217EAA"/>
+            </svg>
+            <span class="font-mono font-bold text-accent text-sm">RANGE42</span>
+          </a>
+          <span class="text-faint text-xs">GPL-3.0 · Public Money, Public Code</span>
+        </div>
+        <nav class="flex flex-wrap gap-x-6 gap-y-2 justify-center" aria-label="Footer navigation">
+          <a href="getting-started.html" class="text-xs text-faint hover:text-muted transition-colors">Docs</a>
+          <a href="catalog.html" class="text-xs text-faint hover:text-muted transition-colors">Catalog</a>
+          <a href="repositories.html" class="text-xs text-faint hover:text-muted transition-colors">Repos</a>
+          <a href="about.html" class="text-xs text-accent">About</a>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="text-xs text-faint hover:text-muted transition-colors">GitHub ↗</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="assets/app.js"></script>
+
+</body>
+</html>

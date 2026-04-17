@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+# TODO: update domain
+Sitemap: https://range42.example.com/sitemap.xml

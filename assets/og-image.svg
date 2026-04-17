@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B0F14"/>
+      <stop offset="0.5" stop-color="#0f1820"/>
+      <stop offset="1" stop-color="#0B0F14"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="900" cy="200" r="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#217EAA" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#217EAA" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#217EAA" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <g transform="translate(100, 180)">
+    <g transform="scale(3)">
+      <rect x="2" y="2" width="36" height="36" rx="6" stroke="#217EAA" stroke-width="1.5" fill="#217EAA" fill-opacity="0.08"/>
+      <path d="M10 14.5L18 20L10 25.5" stroke="#217EAA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="21" y="26.5" width="9" height="2.5" rx="1" fill="#217EAA"/>
+    </g>
+  </g>
+
+  <text x="260" y="250" font-family="'IBM Plex Mono', monospace" font-size="28" font-weight="500" fill="#217EAA" letter-spacing="8">RANGE42</text>
+  <text x="260" y="340" font-family="'IBM Plex Sans', sans-serif" font-size="64" font-weight="700" fill="#E6EEF5">Open-source cyber range</text>
+  <text x="260" y="415" font-family="'IBM Plex Sans', sans-serif" font-size="64" font-weight="700" fill="#E6EEF5">for real-world readiness</text>
+  <text x="260" y="480" font-family="'IBM Plex Sans', sans-serif" font-size="28" font-weight="400" fill="#7D9CB7">Infrastructure-as-code · Proxmox · Ansible · GPL-3.0</text>
+
+  <g transform="translate(100, 550)">
+    <rect x="0" y="0" width="8" height="8" rx="1" fill="#217EAA"/>
+    <text x="20" y="9" font-family="'IBM Plex Mono', monospace" font-size="16" fill="#7D9CB7">NC3 · Luxembourg House of Cybersecurity</text>
+  </g>
+</svg>

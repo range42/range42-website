@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en"
+  x-data="{
+    theme: localStorage.getItem('r42-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
+    navOpen: false
+  }"
+  :data-theme="theme"
+  x-init="$watch('theme', t => localStorage.setItem('r42-theme', t))">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f7fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B0F14" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="dark light">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Primary SEO -->
+  <title>Scenario Catalog — Range42</title>
+  <meta name="description" content="Browse Range42's ready-to-deploy cybersecurity training scenarios: defensive labs, forensics, threat intel, and blank multi-subnet network bases for Proxmox.">
+  <meta name="keywords" content="cyber range scenarios, Proxmox training labs, Wazuh demo lab, forensics lab, MISP lab, Ansible cybersecurity roles, CVE catalog">
+  <meta name="author" content="NC3 Luxembourg — National Cybersecurity Competence Center">
+  <link rel="canonical" href="https://range42.example.com/catalog.html"><!-- TODO: update domain -->
+
+  <!-- Icons & Manifest -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/favicon.svg">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Range42">
+  <meta name="application-name" content="Range42">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://range42.example.com/catalog.html">
+  <meta property="og:title" content="Scenario Catalog — Range42">
+  <meta property="og:description" content="Browse Range42's ready-to-deploy cybersecurity training scenarios for Proxmox.">
+  <meta property="og:image" content="https://range42.example.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Range42 Scenario Catalog">
+  <meta property="og:site_name" content="Range42">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Scenario Catalog — Range42">
+  <meta name="twitter:description" content="Browse Range42's ready-to-deploy cybersecurity training scenarios for Proxmox.">
+  <meta name="twitter:image" content="https://range42.example.com/assets/og-image.png">
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="dist/output.css">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "name": "Range42 Scenario Catalog",
+        "description": "Browse Range42's ready-to-deploy cybersecurity training scenarios for Proxmox.",
+        "url": "https://range42.example.com/catalog.html",
+        "inLanguage": "en",
+        "isPartOf": { "@type": "WebSite", "name": "Range42", "url": "https://range42.example.com" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://range42.example.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Catalog", "item": "https://range42.example.com/catalog.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.11/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-base text-ink">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 btn-primary z-50">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-40 border-b border-theme nav-backdrop">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+          <svg class="h-7 w-7 flex-shrink-0" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="36" height="36" rx="6" stroke="#217EAA" stroke-width="1.5" fill="#217EAA" fill-opacity="0.08"/>
+            <path d="M10 14.5L18 20L10 25.5" stroke="#217EAA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="21" y="26.5" width="9" height="2.5" rx="1" fill="#217EAA"/>
+          </svg>
+          <span class="font-mono font-bold text-accent tracking-widest text-sm">RANGE42</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="getting-started.html" class="nav-link">Docs</a>
+          <a href="catalog.html" class="nav-link-active">Catalog</a>
+          <a href="repositories.html" class="nav-link">Repos</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="btn-primary !py-1.5 !px-3 !text-xs">GitHub ↗</a>
+          <button @click="theme = theme === 'dark' ? 'light' : 'dark'" class="text-faint hover:text-muted transition-colors p-1 rounded" :aria-label="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'">
+            <svg x-show="theme === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg x-show="theme === 'light'" x-cloak class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+        <button @click="navOpen = !navOpen" class="md:hidden p-2 text-muted hover:text-ink transition-colors rounded" aria-label="Toggle navigation">
+          <svg x-show="!navOpen" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg x-show="navOpen" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div x-show="navOpen" x-cloak x-transition.opacity.duration.150ms class="md:hidden pb-4 border-t border-theme pt-3">
+        <div class="flex flex-col gap-2">
+          <a href="getting-started.html" class="nav-link py-2 px-1">Docs</a>
+          <a href="catalog.html" class="nav-link-active py-2 px-1">Catalog</a>
+          <a href="repositories.html" class="nav-link py-2 px-1">Repos</a>
+          <a href="about.html" class="nav-link py-2 px-1">About</a>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="nav-link py-2 px-1">GitHub ↗</a>
+          <button @click="theme = theme === 'dark' ? 'light' : 'dark'" class="text-left nav-link py-2 px-1" x-text="theme === 'dark' ? '☀ Light mode' : '🌙 Dark mode'"></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+
+      <!-- Header -->
+      <header class="mb-12 max-w-2xl">
+        <!-- Breadcrumb -->
+        <nav class="mb-4 text-xs font-mono" aria-label="Breadcrumb">
+          <ol class="flex flex-wrap items-center gap-1 text-faint">
+            <li><a href="/" class="hover:text-muted transition-colors">home</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-muted">catalog</li>
+          </ol>
+        </nav>
+        <p class="terminal-prompt mb-3">catalog</p>
+        <h1 class="text-3xl md:text-4xl font-bold text-ink mb-4 tracking-tight">Scenario Catalog</h1>
+        <p class="text-base sm:text-lg text-muted leading-relaxed">
+          Ready-to-deploy training environments for Proxmox. Pick a scenario, run the wizard, and your lab is live in minutes.
+        </p>
+      </header>
+
+      <!-- Catalog structure explanation -->
+      <section class="mb-12 grid sm:grid-cols-3 gap-4" aria-labelledby="catalog-structure-heading">
+        <h2 id="catalog-structure-heading" class="sr-only">Catalog structure</h2>
+        <div class="p-4 rounded-lg bg-surface2 border border-theme">
+          <p class="text-accent text-xs font-mono uppercase tracking-widest mb-2">Scenarios</p>
+          <p class="text-sm text-muted leading-relaxed">Complete end-to-end lab deployments. Each scenario provisions networks, VMs and services.</p>
+        </div>
+        <div class="p-4 rounded-lg bg-surface2 border border-theme">
+          <p class="text-accent text-xs font-mono uppercase tracking-widest mb-2">Bundles</p>
+          <p class="text-sm text-muted leading-relaxed">Atomic, reusable Ansible actions you can compose into custom deployments via the CLI or UI.</p>
+        </div>
+        <div class="p-4 rounded-lg bg-surface2 border border-theme">
+          <p class="text-accent text-xs font-mono uppercase tracking-widest mb-2">Roles</p>
+          <p class="text-sm text-muted leading-relaxed">Individual Ansible roles for specific products, CVEs and misconfigurations. Building blocks for new scenarios.</p>
+        </div>
+      </section>
+
+      <!-- Scenarios -->
+      <section class="mb-16 reveal" aria-labelledby="scenarios-heading">
+        <p class="section-label" id="scenarios-heading">Scenarios</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <article id="demo-lab" class="card-hover">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="font-bold text-ink">demo_lab</h3>
+              <div class="flex gap-1.5">
+                <span class="tag-defensive">defensive</span>
+                <span class="tag">wazuh</span>
+              </div>
+            </div>
+            <p class="text-sm text-muted leading-relaxed mb-4">
+              Wazuh-instrumented infrastructure with vulnerable hosts. Designed for detection-engineering, alert tuning and blue-team training.
+              Includes misconfigured services and CVE reproductions out of the box.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex gap-2 flex-wrap">
+                <span class="tag">Proxmox VMs</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Wazuh</span>
+              </div>
+              <a href="https://github.com/range42/range42-playbooks/tree/main/scenarios/demo_lab" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">View on GitHub ↗</a>
+            </div>
+          </article>
+
+          <article id="forensics-lab" class="card-hover">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="font-bold text-ink">forensics_lab</h3>
+              <span class="tag">forensics</span>
+            </div>
+            <p class="text-sm text-muted leading-relaxed mb-4">
+              Reproducible compromised environments for incident reconstruction and post-mortem analysis.
+              Perfect for DFIR training and rebuilding compromised systems in an isolated context.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <span class="tag">Proxmox VMs</span>
+                <span class="tag">Snapshots</span>
+              </div>
+              <a href="https://github.com/range42/range42-playbooks/tree/main/scenarios/forensics_lab" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">View on GitHub ↗</a>
+            </div>
+          </article>
+
+          <article id="misp-lab" class="card-hover">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="font-bold text-ink">misp_lab</h3>
+              <span class="tag">threat intel</span>
+            </div>
+            <p class="text-sm text-muted leading-relaxed mb-4">
+              Full MISP (Malware Information Sharing Platform) deployment for threat intelligence sharing,
+              indicator correlation and collaborative analysis exercises.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <span class="tag">MISP</span>
+                <span class="tag">Docker</span>
+              </div>
+              <a href="https://github.com/range42/range42-playbooks/tree/main/scenarios/misp_lab" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">View on GitHub ↗</a>
+            </div>
+          </article>
+
+          <article id="kunai-lab" class="card-hover">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="font-bold text-ink">kunai_lab</h3>
+              <span class="tag-defensive">monitoring</span>
+            </div>
+            <p class="text-sm text-muted leading-relaxed mb-4">
+              Linux kernel-level monitoring with Kunai for deep system telemetry and advanced threat detection.
+              Ideal for understanding low-level attacker behaviour and building detection rules.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex gap-2">
+                <span class="tag">Kunai</span>
+                <span class="tag">Linux</span>
+              </div>
+              <a href="https://github.com/range42/range42-playbooks/tree/main/scenarios/kunai_lab" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">View on GitHub ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Blank scenarios -->
+      <section id="blank-scenarios" class="mb-16 reveal" aria-labelledby="blank-heading">
+        <p class="section-label" id="blank-heading">Network Bases</p>
+        <p class="text-muted text-sm mb-5 leading-relaxed max-w-2xl">Clean, empty network bases to install your own workloads on. Production-grade multi-subnet foundations ready in minutes.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <article class="card-hover">
+            <h3 class="font-semibold text-ink mb-1">blank_scenario_2_subnets</h3>
+            <p class="text-xs text-muted leading-relaxed">Simple two-subnet base. Ideal for basic attacker/defender split.</p>
+            <a href="https://github.com/range42/range42-playbooks/tree/main/scenarios/blank_scenario_2_subnets" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono mt-3 inline-block">GitHub ↗</a>
+          </article>
+          <article class="card-hover">
+            <h3 class="font-semibold text-ink mb-1">blank_scenario_4_subnets</h3>
+            <p class="text-xs text-muted leading-relaxed">Four subnets for more complex segmentation scenarios and DMZ setups.</p>
+            <a href="https://github.com/range42/range42-playbooks/tree/main/scenarios/blank_scenario_4_subnets" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono mt-3 inline-block">GitHub ↗</a>
+          </article>
+          <article class="card-hover">
+            <h3 class="font-semibold text-ink mb-1">blank_scenario_6_subnets</h3>
+            <p class="text-xs text-muted leading-relaxed">Six subnets for enterprise-scale topologies and multi-zone environments.</p>
+            <a href="https://github.com/range42/range42-playbooks/tree/main/scenarios/blank_scenario_6_subnets" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono mt-3 inline-block">GitHub ↗</a>
+          </article>
+        </div>
+      </section>
+
+      <!-- Bundles -->
+      <section class="mb-16 reveal" aria-labelledby="bundles-heading">
+        <p class="section-label" id="bundles-heading">Bundles &amp; Roles</p>
+        <div class="grid md:grid-cols-2 gap-8 items-start">
+          <div>
+            <p class="text-muted text-sm leading-relaxed mb-4">
+              Bundles are atomic, reusable Ansible actions that you can invoke directly from the CLI or compose into custom scenarios.
+              Current bundles cover core Linux setup, Proxmox operations, user management, Docker, and monitoring agents.
+            </p>
+            <p class="text-muted text-sm leading-relaxed mb-5">
+              Individual roles follow the <code class="inline-code">&lt;category&gt;.&lt;action&gt;.&lt;target&gt;</code> naming convention
+              (e.g. <code class="inline-code">software.install.wazuh</code>, <code class="inline-code">systems.checks.overview</code>).
+            </p>
+            <a href="https://github.com/range42/range42-catalog" target="_blank" rel="noopener noreferrer" class="btn-secondary">Browse catalog on GitHub ↗</a>
+          </div>
+          <div class="code-block text-xs leading-relaxed">
+<pre><span class="text-accent"># Catalog structure</span>
+range42-catalog/
+├── 02_ansible_layer/
+│   ├── admin/        <span class="text-faint"># infrastructure roles</span>
+│   ├── trainee/      <span class="text-faint"># student roles</span>
+│   └── _ctf/         <span class="text-faint"># challenge roles</span>
+├── 03_container_layer/
+│   ├── cve/
+│   │   ├── web/      <span class="text-faint"># web CVEs</span>
+│   │   ├── network/  <span class="text-faint"># network CVEs</span>
+│   │   └── system/   <span class="text-faint"># system CVEs</span>
+│   └── misconfiguration/
+└── 04_gamification_layer/
+    ├── hospital/     <span class="text-faint"># hospital theme</span>
+    └── bank/         <span class="text-faint"># bank theme</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contribute CTA -->
+      <section aria-labelledby="contribute-heading" class="p-8 rounded-lg bg-surface border border-theme shadow-card reveal">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+          <div>
+            <p class="section-label mb-2" id="contribute-heading">Contribute</p>
+            <h2 class="text-xl font-bold text-ink mb-2">Missing a scenario or CVE?</h2>
+            <p class="text-sm text-muted max-w-lg leading-relaxed">
+              Open an issue on the catalog repo to request a specific product, CVE or misconfiguration.
+              All catalog contributions welcome — Ansible roles, Docker stacks, and scenario bundles.
+            </p>
+          </div>
+          <div class="flex flex-col gap-3 flex-shrink-0">
+            <a href="https://github.com/range42/range42-catalog/issues" target="_blank" rel="noopener noreferrer" class="btn-primary">Request on GitHub →</a>
+            <a href="https://github.com/range42/range42-catalog" target="_blank" rel="noopener noreferrer" class="btn-secondary justify-center">Browse the repo ↗</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-soft mt-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="text-center pb-5 mb-5 border-b border-soft">
+        <p class="text-xs uppercase tracking-widest font-mono text-faint mb-3">Supported by</p>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-1">
+          <a href="https://nc3.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-soft hover:text-muted transition-colors">NC3 · Luxembourg House of Cybersecurity</a>
+          <a href="https://defense.gouvernement.lu/en.html" target="_blank" rel="noopener noreferrer" class="text-xs text-faint hover:text-soft transition-colors">Direction de la Défense</a>
+          <a href="https://www.digisquad.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-faint hover:text-soft transition-colors">DIGISQUAD</a>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-4">
+          <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <svg class="h-5 w-5" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="36" height="36" rx="6" stroke="#217EAA" stroke-width="1.5" fill="#217EAA" fill-opacity="0.08"/>
+              <path d="M10 14.5L18 20L10 25.5" stroke="#217EAA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="21" y="26.5" width="9" height="2.5" rx="1" fill="#217EAA"/>
+            </svg>
+            <span class="font-mono font-bold text-accent text-sm">RANGE42</span>
+          </a>
+          <span class="text-faint text-xs">GPL-3.0 · Public Money, Public Code</span>
+        </div>
+        <nav class="flex flex-wrap gap-x-6 gap-y-2 justify-center" aria-label="Footer navigation">
+          <a href="getting-started.html" class="text-xs text-faint hover:text-muted transition-colors">Docs</a>
+          <a href="catalog.html" class="text-xs text-accent">Catalog</a>
+          <a href="repositories.html" class="text-xs text-faint hover:text-muted transition-colors">Repos</a>
+          <a href="about.html" class="text-xs text-faint hover:text-muted transition-colors">About</a>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="text-xs text-faint hover:text-muted transition-colors">GitHub ↗</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="assets/app.js"></script>
+
+</body>
+</html>

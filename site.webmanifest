@@ -1,0 +1,19 @@
+{
+  "name": "Range42 — Open-Source Cyber Range Platform",
+  "short_name": "Range42",
+  "description": "Deploy reproducible offensive, defensive and hybrid cybersecurity training environments on Proxmox.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0B0F14",
+  "theme_color": "#0B0F14",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "developer", "security"]
+}

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en"
+  x-data="{
+    theme: localStorage.getItem('r42-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
+    navOpen: false
+  }"
+  :data-theme="theme"
+  x-init="$watch('theme', t => localStorage.setItem('r42-theme', t))">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f7fa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B0F14" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="dark light">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- Primary SEO -->
+  <title>Repositories — Range42</title>
+  <meta name="description" content="Explore Range42's open-source repositories: the setup wizard, visual deployer UI, backend API, Ansible catalog, playbooks and tooling that make up the platform.">
+  <meta name="keywords" content="Range42 repositories, open source cyber range code, Ansible roles GitHub, deployer UI Vue, FastAPI cyber range, Proxmox Ansible role">
+  <meta name="author" content="NC3 Luxembourg — National Cybersecurity Competence Center">
+  <link rel="canonical" href="https://range42.example.com/repositories.html"><!-- TODO: update domain -->
+
+  <!-- Icons & Manifest -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/favicon.svg">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Range42">
+  <meta name="application-name" content="Range42">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://range42.example.com/repositories.html">
+  <meta property="og:title" content="Repositories — Range42">
+  <meta property="og:description" content="Explore Range42's open-source repositories: setup wizard, visual deployer UI, backend API, Ansible catalog, playbooks and tooling.">
+  <meta property="og:image" content="https://range42.example.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Range42 Repositories overview">
+  <meta property="og:site_name" content="Range42">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Repositories — Range42">
+  <meta name="twitter:description" content="Explore Range42's open-source repositories and understand how the platform is structured.">
+  <meta name="twitter:image" content="https://range42.example.com/assets/og-image.png">
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="dist/output.css">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "name": "Range42 Repositories",
+        "description": "Explore Range42's open-source repositories: setup wizard, visual deployer UI, backend API, Ansible catalog, playbooks and tooling.",
+        "url": "https://range42.example.com/repositories.html",
+        "inLanguage": "en",
+        "isPartOf": { "@type": "WebSite", "name": "Range42", "url": "https://range42.example.com" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://range42.example.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Repositories", "item": "https://range42.example.com/repositories.html" }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "name": "Range42 open-source repositories",
+        "itemListOrder": "https://schema.org/ItemListOrderAscending",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "url": "https://github.com/range42/range42", "name": "range42" },
+          { "@type": "ListItem", "position": 2, "url": "https://github.com/range42/range42-deployer-ui", "name": "range42-deployer-ui" },
+          { "@type": "ListItem", "position": 3, "url": "https://github.com/range42/range42-emp-mockup", "name": "range42-emp-mockup" },
+          { "@type": "ListItem", "position": 4, "url": "https://github.com/range42/range42-backend-api", "name": "range42-backend-api" },
+          { "@type": "ListItem", "position": 5, "url": "https://github.com/range42/range42-api-definitions", "name": "range42-api-definitions" },
+          { "@type": "ListItem", "position": 6, "url": "https://github.com/range42/range42-catalog", "name": "range42-catalog" },
+          { "@type": "ListItem", "position": 7, "url": "https://github.com/range42/range42-playbooks", "name": "range42-playbooks" },
+          { "@type": "ListItem", "position": 8, "url": "https://github.com/range42/range42-ansible_roles-proxmox_controller", "name": "range42-ansible_roles-proxmox_controller" },
+          { "@type": "ListItem", "position": 9, "url": "https://github.com/range42/range42-ansible_roles-debug-devkit", "name": "range42-ansible_roles-debug-devkit" },
+          { "@type": "ListItem", "position": 10, "url": "https://github.com/range42/range42-presentation", "name": "range42-presentation" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.11/dist/cdn.min.js"></script>
+</head>
+
+<body class="bg-base text-ink">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 btn-primary z-50">Skip to content</a>
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-40 border-b border-theme nav-backdrop">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="/" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+          <svg class="h-7 w-7 flex-shrink-0" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="36" height="36" rx="6" stroke="#217EAA" stroke-width="1.5" fill="#217EAA" fill-opacity="0.08"/>
+            <path d="M10 14.5L18 20L10 25.5" stroke="#217EAA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="21" y="26.5" width="9" height="2.5" rx="1" fill="#217EAA"/>
+          </svg>
+          <span class="font-mono font-bold text-accent tracking-widest text-sm">RANGE42</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+          <a href="getting-started.html" class="nav-link">Docs</a>
+          <a href="catalog.html" class="nav-link">Catalog</a>
+          <a href="repositories.html" class="nav-link-active">Repos</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="btn-primary !py-1.5 !px-3 !text-xs">GitHub ↗</a>
+          <button @click="theme = theme === 'dark' ? 'light' : 'dark'" class="text-faint hover:text-muted transition-colors p-1 rounded" :aria-label="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'">
+            <svg x-show="theme === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg x-show="theme === 'light'" x-cloak class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+        <button @click="navOpen = !navOpen" class="md:hidden p-2 text-muted hover:text-ink transition-colors rounded" aria-label="Toggle navigation">
+          <svg x-show="!navOpen" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg x-show="navOpen" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div x-show="navOpen" x-cloak x-transition.opacity.duration.150ms class="md:hidden pb-4 border-t border-theme pt-3">
+        <div class="flex flex-col gap-2">
+          <a href="getting-started.html" class="nav-link py-2 px-1">Docs</a>
+          <a href="catalog.html" class="nav-link py-2 px-1">Catalog</a>
+          <a href="repositories.html" class="nav-link-active py-2 px-1">Repos</a>
+          <a href="about.html" class="nav-link py-2 px-1">About</a>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="nav-link py-2 px-1">GitHub ↗</a>
+          <button @click="theme = theme === 'dark' ? 'light' : 'dark'" class="text-left nav-link py-2 px-1" x-text="theme === 'dark' ? '☀ Light mode' : '🌙 Dark mode'"></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+
+      <!-- Header -->
+      <header class="mb-14 max-w-2xl">
+        <!-- Breadcrumb -->
+        <nav class="mb-4 text-xs font-mono" aria-label="Breadcrumb">
+          <ol class="flex flex-wrap items-center gap-1 text-faint">
+            <li><a href="/" class="hover:text-muted transition-colors">home</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-muted">repositories</li>
+          </ol>
+        </nav>
+        <p class="terminal-prompt mb-3">github.com/range42</p>
+        <h1 class="text-3xl md:text-4xl font-bold text-ink mb-4 tracking-tight">Repositories</h1>
+        <p class="text-base sm:text-lg text-muted leading-relaxed">
+          Range42 is a multi-repository platform. Each repo is a self-contained layer — they work independently and compose together into a complete cyber range stack.
+        </p>
+      </header>
+
+      <!-- Architecture flow -->
+      <section class="mb-16" aria-labelledby="arch-heading">
+        <p class="section-label" id="arch-heading">How the layers fit together</p>
+        <div class="code-block text-sm leading-loose overflow-x-auto">
+<pre>
+  <span class="text-accent font-bold">[ range42 ]</span>          Setup wizard — bootstraps everything below
+        │
+        ├──▶ <span class="text-accent font-bold">[ range42-deployer-ui ]</span>      Visual canvas → deployment plan
+        │           │
+        │           ▼
+        └──▶ <span class="text-accent font-bold">[ range42-backend-api ]</span>     Deployment orchestrator
+                    │                    (spec: range42-api-definitions)
+                    ▼
+        <span class="text-ink font-bold">[ Ansible Runner ]</span>
+                    │
+         ┌──────────┴──────────┐
+         ▼                     ▼
+  <span class="text-accent font-bold">[ range42-playbooks ]</span>   <span class="text-accent font-bold">[ range42-catalog ]</span>
+   Scenarios &amp; bundles     Roles &amp; containers
+         │
+         ▼
+  <span class="text-accent font-bold">[ range42-ansible_roles-proxmox_controller ]</span>
+   Proxmox API — provisions VMs, LXC, networks
+</pre>
+        </div>
+      </section>
+
+      <!-- Layer: Core -->
+      <section class="mb-14 reveal" aria-labelledby="core-heading">
+        <p class="section-label" id="core-heading">Core — Setup &amp; Orchestration</p>
+        <div class="grid gap-5">
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42</h2>
+                  <span class="tag-defensive">entry point</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  The main installer and orchestrator. Contains the interactive TUI setup wizard (<code class="inline-code">range42-init.py</code>),
+                  the top-level <code class="inline-code">site.yml</code> deployment pipeline, and bootstrap Ansible roles.
+                  This is where every new deployment starts — it handles prerequisite checks, Proxmox connection,
+                  inventory generation and vault setup before handing off to the playbooks.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">Python</span>
+                  <span class="tag">Ansible</span>
+                  <span class="tag">Textual TUI</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Layer: Interface -->
+      <section class="mb-14 reveal" aria-labelledby="ui-heading">
+        <p class="section-label" id="ui-heading">Interface — User-Facing Applications</p>
+        <div class="grid gap-5">
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42-deployer-ui</h2>
+                  <span class="tag-defensive">active</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  A Vue 3 single-page application for visually designing and deploying infrastructure.
+                  Users drag and drop nodes (VMs, LXC containers, networks, routers, firewalls) onto a
+                  VueFlow canvas, configure each element, then trigger deployment to the backend API.
+                  Supports dark/light mode, multi-language (EN/FR/JP), git-backed project storage,
+                  and real-time deployment status via Server-Sent Events.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">Vue 3</span>
+                  <span class="tag">VueFlow</span>
+                  <span class="tag">Tailwind CSS</span>
+                  <span class="tag">Pinia</span>
+                  <span class="tag">TypeScript</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42-deployer-ui" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42-emp-mockup</h2>
+                  <span class="tag">in progress</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  A Vue 3 + TypeScript mockup of the Exercise Management Platform (EMP) — the future
+                  operator-facing dashboard for managing running exercises, tracking team progress,
+                  delivering flags and monitoring participants across active gamenet deployments.
+                  Currently in design and prototyping phase.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">Vue 3</span>
+                  <span class="tag">TypeScript</span>
+                  <span class="tag">Tailwind CSS</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42-emp-mockup" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Layer: API -->
+      <section class="mb-14 reveal" aria-labelledby="api-heading">
+        <p class="section-label" id="api-heading">API — Backend &amp; Specification</p>
+        <div class="grid gap-5">
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42-backend-api</h2>
+                  <span class="tag-defensive">active</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  A FastAPI application that acts as the deployment orchestrator between the UI and the Ansible layer.
+                  It exposes REST endpoints for VM lifecycle management, playbook execution, and bundle operations,
+                  executing Ansible playbooks programmatically via <code class="inline-code">ansible-runner</code>.
+                  Authentication and ACL are handled upstream by a Kong API gateway — the backend itself
+                  operates on trusted internal traffic only.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">Python 3</span>
+                  <span class="tag">FastAPI</span>
+                  <span class="tag">Pydantic</span>
+                  <span class="tag">ansible-runner</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42-backend-api" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42-api-definitions</h2>
+                  <span class="tag">specification</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  The OpenAPI / Swagger specification for the Range42 backend API.
+                  Acts as the single source of truth for all request/response schemas,
+                  keeping the UI client and backend contract in sync. Use it to generate
+                  client SDKs, explore the API interactively via Swagger UI, or validate
+                  payloads during development.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">OpenAPI 3</span>
+                  <span class="tag">JSON</span>
+                  <span class="tag">Swagger</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42-api-definitions" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Layer: Automation -->
+      <section class="mb-14 reveal" aria-labelledby="automation-heading">
+        <p class="section-label" id="automation-heading">Automation — Ansible &amp; Infrastructure</p>
+        <div class="grid gap-5">
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42-catalog</h2>
+                  <span class="tag-defensive">active</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  The core content library of the platform. Contains three layers:
+                  <strong class="text-ink">Ansible roles</strong> for provisioning infrastructure and installing software (admin, trainee, CTF categories),
+                  <strong class="text-ink">Docker / LXC definitions</strong> for containerised vulnerable services and CVE reproductions
+                  (organised by type: web, network, system, crypto, malware, misconfiguration),
+                  and <strong class="text-ink">gamification templates</strong> — themed environments (hospital, bank) used to wrap vulnerabilities
+                  in realistic scenarios. Role names follow the <code class="inline-code">&lt;category&gt;.&lt;action&gt;.&lt;target&gt;</code> convention.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">Ansible YAML</span>
+                  <span class="tag">Dockerfile</span>
+                  <span class="tag">Docker Compose</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42-catalog" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42-playbooks</h2>
+                  <span class="tag-defensive">active</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  The collection of deployment bundles and full training scenarios. Composed of two types:
+                  <strong class="text-ink">bundles</strong> — atomic, reusable Ansible actions (ping, core Linux setup, Proxmox operations,
+                  Docker, monitoring agents) that can be combined freely — and
+                  <strong class="text-ink">scenarios</strong> — complete end-to-end lab deployments such as
+                  <code class="inline-code">demo_lab</code>, <code class="inline-code">forensics_lab</code>,
+                  <code class="inline-code">misp_lab</code>, <code class="inline-code">kunai_lab</code> and the
+                  blank multi-subnet network bases. This is the repo to fork if you want to create custom scenarios.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">Ansible YAML</span>
+                  <span class="tag">Jinja2</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42-playbooks" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42-ansible_roles-proxmox_controller</h2>
+                  <span class="tag-defensive">active</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  A standalone Ansible role that wraps the Proxmox VE API.
+                  Provides 67+ actions covering the full VM and LXC lifecycle:
+                  creation, cloning, network interface management, storage operations,
+                  firewall rules, snapshot management, start/stop/delete, and more.
+                  Designed to be reusable outside Range42 — you can use it in any
+                  Ansible project that needs to drive a Proxmox host.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">Ansible YAML</span>
+                  <span class="tag">Proxmox API</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42-ansible_roles-proxmox_controller" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Layer: Tooling -->
+      <section class="mb-14 reveal" aria-labelledby="tooling-heading">
+        <p class="section-label" id="tooling-heading">Tooling — Development &amp; Presentation</p>
+        <div class="grid gap-5">
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42-ansible_roles-debug-devkit</h2>
+                  <span class="tag">tooling</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  A collection of shell scripts for testing, debugging, and development workflows.
+                  Scripts follow a self-documenting naming convention:
+                  <code class="inline-code">&lt;MODULE&gt;.&lt;INPUT&gt;.&lt;VERB&gt;.to.&lt;OUTPUT&gt;.sh</code> —
+                  for example, <code class="inline-code">proxmox_vm.vm_id.get_config.to.jsons.sh</code> takes a VM ID,
+                  fetches its config from the Proxmox API, and outputs a JSON stream.
+                  Useful for inspecting live infrastructure state, validating API responses, and rapid debugging.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">Bash</span>
+                  <span class="tag">jq</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42-ansible_roles-debug-devkit" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+          <article class="card-hover">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2 flex-wrap">
+                  <h2 class="font-bold text-ink font-mono">range42-presentation</h2>
+                  <span class="tag">materials</span>
+                </div>
+                <p class="text-sm text-muted leading-relaxed mb-3">
+                  Conference presentations and talk materials for Range42. Built with LaTeX Beamer
+                  using the Metropolis theme, IBM Plex Sans/Mono fonts, and the Range42 cyber colour palette.
+                  Includes slides presented at OSCL 2025 and FIC Lille 2026.
+                  Released under TLP:CLEAR — freely shareable without restriction.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">LaTeX</span>
+                  <span class="tag">XeLaTeX</span>
+                  <span class="tag">Beamer</span>
+                </div>
+              </div>
+              <a href="https://github.com/range42/range42-presentation" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-shrink-0 self-start">GitHub ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Contributing CTA -->
+      <section aria-labelledby="contrib-heading" class="p-8 rounded-lg bg-surface border border-theme shadow-card reveal">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+          <div>
+            <p class="section-label mb-2" id="contrib-heading">Contribute</p>
+            <h2 class="text-xl font-bold text-ink mb-2">All repositories welcome contributions</h2>
+            <p class="text-sm text-muted max-w-lg leading-relaxed">
+              Bug reports, feature requests, new catalog roles, scenario ideas, and documentation improvements
+              are all welcome. Each repository has its own issue tracker on GitHub.
+            </p>
+          </div>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="btn-primary flex-shrink-0">View Organisation ↗</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-soft mt-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="text-center pb-5 mb-5 border-b border-soft">
+        <p class="text-xs uppercase tracking-widest font-mono text-faint mb-3">Supported by</p>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-1">
+          <a href="https://nc3.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-soft hover:text-muted transition-colors">NC3 · Luxembourg House of Cybersecurity</a>
+          <a href="https://defense.gouvernement.lu/en.html" target="_blank" rel="noopener noreferrer" class="text-xs text-faint hover:text-soft transition-colors">Direction de la Défense</a>
+          <a href="https://www.digisquad.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-faint hover:text-soft transition-colors">DIGISQUAD</a>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-4">
+          <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <svg class="h-5 w-5" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="36" height="36" rx="6" stroke="#217EAA" stroke-width="1.5" fill="#217EAA" fill-opacity="0.08"/>
+              <path d="M10 14.5L18 20L10 25.5" stroke="#217EAA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="21" y="26.5" width="9" height="2.5" rx="1" fill="#217EAA"/>
+            </svg>
+            <span class="font-mono font-bold text-accent text-sm">RANGE42</span>
+          </a>
+          <span class="text-faint text-xs">GPL-3.0 · Public Money, Public Code</span>
+        </div>
+        <nav class="flex flex-wrap gap-x-6 gap-y-2 justify-center" aria-label="Footer navigation">
+          <a href="getting-started.html" class="text-xs text-faint hover:text-muted transition-colors">Docs</a>
+          <a href="catalog.html" class="text-xs text-faint hover:text-muted transition-colors">Catalog</a>
+          <a href="repositories.html" class="text-xs text-accent">Repos</a>
+          <a href="about.html" class="text-xs text-faint hover:text-muted transition-colors">About</a>
+          <a href="https://github.com/range42" target="_blank" rel="noopener noreferrer" class="text-xs text-faint hover:text-muted transition-colors">GitHub ↗</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="assets/app.js"></script>
+
+</body>
+</html>
