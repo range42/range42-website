@@ -17,10 +17,10 @@
 
   <!-- Primary SEO -->
   <title>About — Range42</title>
-  <meta name="description" content="Range42 is an open-source cyber range platform developed by NC3 and the Luxembourg House of Cybersecurity. Learn about the team, supporters and how to contribute.">
+  <meta name="description" content="Range42 is an open-source cyber range platform developed by NC3 under the Luxembourg House of Cybersecurity and DIGISQUAD. Learn about the team, supporters and how to contribute.">
   <meta name="keywords" content="Range42 team, NC3 Luxembourg, LHC cybersecurity, open source cyber range, GPL license, public money public code">
   <meta name="author" content="NC3 Luxembourg — National Cybersecurity Competence Center">
-  <link rel="canonical" href="https://range42.example.com/about.html"><!-- TODO: update domain -->
+  <link rel="canonical" href="https://range42.lu/about.html"><!-- TODO: update domain -->
 
   <!-- Icons & Manifest -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -45,7 +45,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About — Range42">
   <meta name="twitter:description" content="Range42 is an open-source cyber range platform developed by NC3 and the Luxembourg House of Cybersecurity.">
-  <meta name="twitter:image" content="https://range42.example.com/assets/og-image.png">
+  <meta name="twitter:image" content="https://range42.lu/assets/og-image.png">
 
   <!-- Performance hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,18 +57,23 @@
   <link rel="stylesheet" href="dist/output.css">
 
   <!-- Schema.org -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "AboutPage",
-        "name": "About Range42",
-        "description": "Range42 is an open-source cyber range platform developed by NC3 and the Luxembourg House of Cybersecurity.",
-        "url": "https://range42.example.com/about.html",
-        "inLanguage": "en",
-        "isPartOf": { "@type": "WebSite", "name": "Range42", "url": "https://range42.example.com" },
-        "about": {
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "name": "About Range42",
+      "description": "Range42 is an open-source cyber range platform developed by NC3 under the Luxembourg House of Cybersecurity and DIGISQUAD.",
+      "url": "https://range42.lu/about.html",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Range42",
+        "url": "https://range42.lu"
+      },
+      "about": [
+        {
           "@type": "Organization",
           "name": "NC3 — National Cybersecurity Competence Center",
           "url": "https://nc3.lu",
@@ -77,18 +82,34 @@
             "name": "Luxembourg House of Cybersecurity",
             "url": "https://lhc.lu"
           }
+        },
+        {
+          "@type": "Organization",
+          "name": "DIGISQUAD",
+          "url": "https://digisquad.lu"
         }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://range42.example.com/" },
-          { "@type": "ListItem", "position": 2, "name": "About", "item": "https://range42.example.com/about.html" }
-        ]
-      }
-    ]
-  }
-  </script>
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://range42.lu/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "About",
+          "item": "https://range42.lu/about.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
 
   <!-- Alpine.js -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.11/dist/cdn.min.js"></script>
@@ -196,18 +217,18 @@
                 </div>
               </div>
             </div>
-
+           <div class="card">
+              <h3 class="font-semibold text-ink mb-1">DIGISQUAD</h3>
+              <p class="text-sm text-muted leading-relaxed mb-2">Contributing partner providing development resources across the full Range42 stack from the deployer CLI through the deployer UI to the Ansible catalog</p>
+              <a href="https://www.digisquad.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">digisquad.lu ↗</a>
+            </div>
             <div class="card">
               <h3 class="font-semibold text-ink mb-1">Direction de la Défense</h3>
               <p class="text-sm text-muted leading-relaxed mb-2">Sponsor of the Range42 initiative, supporting the development of national cybersecurity training capabilities.</p>
               <a href="https://defense.gouvernement.lu/en.html" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">defense.gouvernement.lu ↗</a>
             </div>
 
-            <div class="card">
-              <h3 class="font-semibold text-ink mb-1">DIGISQUAD</h3>
-              <p class="text-sm text-muted leading-relaxed mb-2">Contributing partner providing development resources for the Range42 platform, including the deployer UI and Ansible catalog.</p>
-              <a href="https://www.digisquad.lu" target="_blank" rel="noopener noreferrer" class="text-xs text-accent hover:underline font-mono">digisquad.lu ↗</a>
-            </div>
+           
 
           </div>
         </section>
