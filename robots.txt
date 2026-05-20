@@ -2,5 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
-# TODO: update domain
-Sitemap: https://range42.example.com/sitemap.xml
+Sitemap: https://range42.lu/sitemap.xml
