@@ -46,13 +46,10 @@
   <meta name="twitter:title" content="Getting Started — Range42">
   <meta name="twitter:description" content="Step-by-step guide to deploying a cyber range on Proxmox with Range42.">
   <meta name="twitter:image" content="https://range42.lu/assets/og-image.png">
-
-  <!-- Performance hints -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <!-- Self-hosted fonts -->
+  <link rel="preload" href="assets/fonts/ibm-plex-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
   <!-- Styles -->
   <link rel="stylesheet" href="dist/output.css">
 
@@ -117,7 +114,7 @@
   </script>
 
   <!-- Alpine.js -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.11/dist/cdn.min.js"></script>
+  <script defer src="assets/vendor/alpinejs-3.15.11.min.js"></script>
 </head>
 
 <body class="bg-base text-ink">
